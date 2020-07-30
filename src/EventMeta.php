@@ -33,7 +33,7 @@ class EventMeta implements EventMetaInterface {
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityManager;
+  protected $entityTypeManager;
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
@@ -92,7 +92,7 @@ class EventMeta implements EventMetaInterface {
   /**
    * Constructs a new EventMeta object.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
    * @param EntityTypeBundleInfoInterface $bundle_info
    *   The bundle info.
@@ -113,8 +113,8 @@ class EventMeta implements EventMetaInterface {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The event entity.
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager, EntityTypeBundleInfoInterface $bundle_info, ConfigFactoryInterface $config_factory, SelectionPluginManagerInterface $selection_plugin_manager, IdentityChannelManagerInterface $identity_channel_manager, RngConfigurationInterface $rng_configuration, EventManagerInterface $event_manager, CourierManagerInterface $courier_manager, ActionManager $action_manager, EntityInterface $entity) {
-    $this->entityManager = $entity_manager;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $bundle_info, ConfigFactoryInterface $config_factory, SelectionPluginManagerInterface $selection_plugin_manager, IdentityChannelManagerInterface $identity_channel_manager, RngConfigurationInterface $rng_configuration, EventManagerInterface $event_manager, CourierManagerInterface $courier_manager, ActionManager $action_manager, EntityInterface $entity) {
+    $this->entityTypeManager = $entity_type_manager;
     $this->bundleInfo = $bundle_info;
     $this->configFactory = $config_factory;
     $this->selectionPluginManager = $selection_plugin_manager;
@@ -192,7 +192,7 @@ class EventMeta implements EventMetaInterface {
    * {@inheritdoc}
    */
   public function getRegistrationTypes() {
-    return $this->entityManager->getStorage('registration_type')->loadMultiple($this->getRegistrationTypeIds());
+    return $this->entityTypeManager->getStorage('registration_type')->loadMultiple($this->getRegistrationTypeIds());
   }
 
   /**
@@ -289,7 +289,7 @@ class EventMeta implements EventMetaInterface {
    * {@inheritdoc}
    */
   public function buildQuery($entity_type) {
-    return $this->entityManager->getStorage($entity_type)->getQuery('AND')
+    return $this->entityTypeManager->getStorage($entity_type)->getQuery('AND')
       ->condition('event__target_type', $this->getEvent()->getEntityTypeId(), '=')
       ->condition('event__target_id', $this->getEvent()->id(), '=');
   }
@@ -320,7 +320,7 @@ class EventMeta implements EventMetaInterface {
    */
   public function getRegistrations() {
     $query = $this->buildRegistrationQuery();
-    return $this->entityManager->getStorage('registration')->loadMultiple($query->execute());
+    return $this->entityTypeManager->getStorage('registration')->loadMultiple($query->execute());
   }
 
   /**
@@ -358,7 +358,7 @@ class EventMeta implements EventMetaInterface {
       $query->condition('status', $is_active, '=');
     }
 
-    $rules = $this->entityManager
+    $rules = $this->entityTypeManager
       ->getStorage('rng_rule')
       ->loadMultiple($query->execute());
     if ($defaults && !$rules) {
@@ -452,14 +452,14 @@ class EventMeta implements EventMetaInterface {
    */
   public function getGroups() {
     $query = $this->buildGroupQuery();
-    return $this->entityManager->getStorage('registration_group')->loadMultiple($query->execute());
+    return $this->entityTypeManager->getStorage('registration_group')->loadMultiple($query->execute());
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildRegistrantQuery($entity_type_id = NULL) {
-    $query = $this->entityManager->getStorage('registrant')->getQuery('AND')
+    $query = $this->entityTypeManager->getStorage('registrant')->getQuery('AND')
       ->condition('registration.entity.event__target_type', $this->getEvent()->getEntityTypeId(), '=')
       ->condition('registration.entity.event__target_id', $this->getEvent()->id(), '=');
 
@@ -475,7 +475,7 @@ class EventMeta implements EventMetaInterface {
    */
   public function getRegistrants($entity_type_id = NULL) {
     $query = $this->buildRegistrantQuery($entity_type_id);
-    return $this->entityManager->getStorage('registrant')->loadMultiple($query->execute());
+    return $this->entityTypeManager->getStorage('registrant')->loadMultiple($query->execute());
   }
 
   /**
@@ -485,7 +485,7 @@ class EventMeta implements EventMetaInterface {
     // Create is checked first since it is usually the cheapest.
     $identity_types = $this->getCreatableIdentityTypes();
     foreach ($identity_types as $entity_type_id => $bundles) {
-      $accessControl = $this->entityManager->getAccessControlHandler($entity_type_id);
+      $accessControl = $this->entityTypeManager->getAccessControlHandler($entity_type_id);
       if ($this->entityTypeHasBundles($entity_type_id)) {
         foreach ($bundles as $bundle) {
           if ($accessControl->createAccess($bundle)) {
@@ -654,7 +654,7 @@ class EventMeta implements EventMetaInterface {
    *   Whether an entity type uses a separate bundle entity type.
    */
   protected function entityTypeHasBundles($entity_type_id) {
-    $entity_type = $this->entityManager->getDefinition($entity_type_id);
+    $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
     return ($entity_type->getBundleEntityType() !== NULL);
   }
 

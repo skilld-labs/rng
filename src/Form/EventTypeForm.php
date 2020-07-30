@@ -413,7 +413,7 @@ class EventTypeForm extends EntityForm {
 
     $message = ($status == SAVED_UPDATED) ? '%label event type updated.' : '%label event type added.';
     $url = $event_type->toUrl();
-    $t_args = ['%label' => $event_type->id(), 'link' => Link::fromTextAndUrl(t('Edit'), $url)];
+    $t_args = ['%label' => $event_type->id(), 'link' => (Link::fromTextAndUrl($this->t('Edit'), $url))->toString()];
 
     $this->messenger()->addMessage($this->t($message, $t_args));
     $this->logger('rng')->notice($message, $t_args);

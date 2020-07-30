@@ -3,7 +3,7 @@
 namespace Drupal\rng\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\PostResponseEvent;
+use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\rng\RngEntityModelInterface;
@@ -54,10 +54,10 @@ class RngRequestSubscriber implements EventSubscriberInterface {
   /**
    * Run RNG rules for entity operations which occurred during this request.
    *
-   * @param \Symfony\Component\HttpKernel\Event\PostResponseEvent $event
+   * @param \Symfony\Component\HttpKernel\Event\TerminateEvent $event
    *   The event to process.
    */
-  public function onKernelTerminate(PostResponseEvent $event) {
+  public function onKernelTerminate(TerminateEvent $event) {
     $operation_records = $this->rngEntityModel->getOperationRecords();
     foreach ($operation_records as $operation_record) {
       if ($operation_record->getEntityTypeId() == 'registration') {

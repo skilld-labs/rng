@@ -6,7 +6,6 @@ use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Routing\RouteProviderInterface;
 use Drupal\rng\EventManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Cache\Cache;
@@ -37,14 +36,11 @@ class LocalActions extends DeriverBase implements ContainerDeriverInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
    *   The entity manager.
-   * @param \Drupal\Core\Routing\RouteProviderInterface $route_provider
-   *   The route provider.
    * @param \Drupal\rng\EventManagerInterface $event_manager
    *   The RNG event manager.
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager, RouteProviderInterface $route_provider, EventManagerInterface $event_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_manager, EventManagerInterface $event_manager) {
     $this->entityManager = $entity_manager;
-    $this->routeProvider = $route_provider;
     $this->eventManager = $event_manager;
   }
 
@@ -53,8 +49,7 @@ class LocalActions extends DeriverBase implements ContainerDeriverInterface {
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $container->get('entity.manager'),
-      $container->get('router.route_provider'),
+      $container->get('entity_type.manager'),
       $container->get('rng.event_manager')
     );
   }

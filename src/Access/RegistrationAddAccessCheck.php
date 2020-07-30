@@ -16,20 +16,20 @@ use Drupal\rng\Entity\RegistrationTypeInterface;
 class RegistrationAddAccessCheck implements AccessInterface {
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityManager;
+  protected $entityTypeManager;
 
   /**
    * Constructs a EventRegistrationAllowedCheck object.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
-   *   The entity manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager) {
-    $this->entityManager = $entity_manager;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -38,7 +38,7 @@ class RegistrationAddAccessCheck implements AccessInterface {
   public function access(Route $route, RouteMatchInterface $route_match, AccountInterface $account, RegistrationTypeInterface $registration_type = NULL) {
     if ($event = $route->getDefault('event')) {
       $context = ['event' => $route_match->getParameter($event)];
-      $access_control_handler = $this->entityManager->getAccessControlHandler('registration');
+      $access_control_handler = $this->entityTypeManager->getAccessControlHandler('registration');
       if ($registration_type) {
         return $access_control_handler->createAccess($registration_type->id(), $account, $context, TRUE);
       }

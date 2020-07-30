@@ -24,7 +24,7 @@ class MessageActionForm extends FormBase {
   protected $actionPlugin;
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
@@ -43,7 +43,7 @@ class MessageActionForm extends FormBase {
    * @param \Drupal\Core\Action\ActionManager $action_manager
    *   The action manager.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
-   *   The entity manager.
+   *   The entity type manager.
    * @param \Drupal\rng\EventManagerInterface $event_manager
    *   The RNG event manager.
    */
@@ -59,7 +59,7 @@ class MessageActionForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('plugin.manager.action'),
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('rng.event_manager')
     );
   }

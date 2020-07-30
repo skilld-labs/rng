@@ -4,7 +4,6 @@ namespace Drupal\rng\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -12,23 +11,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Form controller for registration types.
  */
 class RegistrationTypeForm extends EntityForm {
-  /**
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQueryFactory;
 
   /**
-   * {@inheritdoc}
+   * The registration type storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  public function __construct(QueryFactory $query_factory) {
-    $this->entityQueryFactory = $query_factory;
-  }
+  protected $registrationTypeStorage;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity.query'));
+    $instance = new static();
+    $instance->registrationTypeStorage = $container->get('entity_type.manager')
+      ->getStorage('registration_type');
+    return $instance;
   }
 
   /**
@@ -80,7 +78,7 @@ class RegistrationTypeForm extends EntityForm {
    * Callback for `id` form element in RegistrationTypeForm->buildForm.
    */
   public function exists($entity_id, array $element, FormStateInterface $form_state) {
-    $query = $this->entityQueryFactory->get('registration_type');
+    $query = $this->registrationTypeStorage->getQuery();
     return (bool) $query->condition('id', $entity_id)->execute();
   }
 

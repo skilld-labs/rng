@@ -4,4 +4,4 @@ description: 'Debug event settings.'
 package: RNG
 core_version_requirement: ^8.8.4 || ^9.0
 dependencies:
-  - rng
+  - rng:rng

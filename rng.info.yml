@@ -4,7 +4,6 @@ description: 'Provides the ability to create and manage events and registrations
 package: RNG
 core_version_requirement: ^8.8.4 || ^9.0
 dependencies:
-  - drupal:system (>=8.1)
   - courier:courier
   - dynamic_entity_reference:dynamic_entity_reference
-  - unlimited_number:unlimited_number (>=8.x-1.0-beta2)
+  - unlimited_number:unlimited_number

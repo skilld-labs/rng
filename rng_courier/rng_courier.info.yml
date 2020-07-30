@@ -4,5 +4,5 @@ description: 'Courier integration for RNG'
 core_version_requirement: ^8.8.4 || ^9.0
 package: 'RNG'
 dependencies:
-  - rng
-  - courier
+  - rng:rng
+  - courier:courier

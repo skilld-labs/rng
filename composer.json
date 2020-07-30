@@ -23,9 +23,9 @@
   ],
   "license": "GPL-2.0+",
   "require": {
-    "drupal/core": "^8.8.4",
+    "drupal/courier": "^2.0@alpha",
     "drupal/dynamic_entity_reference": "^1.0",
-    "drupal/unlimited_number": "^1.0@beta"
+    "drupal/unlimited_number": "^2.0"
   },
   "suggest": {
     "drupal/token": " Improves token UI on message template forms.",

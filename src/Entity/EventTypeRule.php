@@ -15,6 +15,19 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "id"
+ *   },
+ *   config_export = {
+ *     "entity_type",
+ *     "bundle",
+ *     "machine_name",
+ *     "trigger",
+ *     "conditions",
+ *     "actions",
+ *     "client",
+ *     "format",
+ *     "pager_settings",
+ *     "api_key_settings",
+ *     "parameters",
  *   }
  * )
  */

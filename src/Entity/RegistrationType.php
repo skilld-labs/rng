@@ -31,6 +31,11 @@ use Drupal\rng\EventManagerInterface;
  *     "canonical" = "/admin/structure/rng/registration_types/manage/{registration_type}",
  *     "edit-form" = "/admin/structure/rng/registration_types/manage/{registration_type}",
  *     "delete-form" = "/admin/structure/rng/registration_types/manage/{registration_type}/delete",
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "description",
  *   }
  * )
  */

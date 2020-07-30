@@ -37,6 +37,23 @@ use Drupal\Core\Entity\Entity\EntityFormMode;
  *     "delete-form" = "/admin/structure/rng/event_types/manage/{rng_event_type}/delete",
  *     "event-access-defaults" = "/admin/structure/rng/event_types/manage/{rng_event_type}/access_defaults",
  *     "field-mapping" = "/admin/structure/rng/event_types/manage/{rng_event_type}/field_mapping",
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "entity_type",
+ *     "bundle",
+ *     "mirror_operation_to_event_manage",
+ *     "custom_rules",
+ *     "default_registrant",
+ *     "allow_anon_registrants",
+ *     "auto_sync_registrants",
+ *     "auto_attach_users",
+ *     "registrant_email_field",
+ *     "event_start_date_field",
+ *     "event_end_date_field",
+ *     "people_types",
+ *     "default_messages",
+ *     "fields",
  *   }
  * )
  */

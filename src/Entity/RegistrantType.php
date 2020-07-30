@@ -36,6 +36,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "edit-form" = "/admin/structure/rng/registrant_types/manage/{registrant_type}",
  *     "admin-form" = "/admin/structure/rng/registrant_types/manage/{registrant_type}",
  *     "collection" = "/admin/structure/rng/registrant_types"
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "description",
+ *     "label_pattern",
  *   }
  * )
  */

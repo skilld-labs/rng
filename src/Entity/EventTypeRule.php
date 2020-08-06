@@ -14,9 +14,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   config_prefix = "rule",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "id"
+ *     "label" = "label"
  *   },
  *   config_export = {
+ *     "id",
  *     "entity_type",
  *     "bundle",
  *     "machine_name",
@@ -32,6 +33,15 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * )
  */
 class EventTypeRule extends ConfigEntityBase implements EventTypeRuleInterface {
+
+  /**
+   * The machine name of this event config.
+   *
+   * Inspired by two part-ID's from \Drupal\field\Entity\FieldStorageConfig.
+   *
+   * @var string
+   */
+  protected $id;
 
   /**
    * The event entity type.

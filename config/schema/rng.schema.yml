@@ -73,6 +73,11 @@ rng.rng_event_type.*.*:
     event_end_date_field:
       type: string
       label: 'Machine name of event end date field. Uses end_value if exists.'
+    fields:
+      type: sequence
+      label: 'Fields to add to event bundles.'
+      sequence:
+        type: string
     custom_rules:
       type: boolean
       label: 'Allow event managers to customise default rules.'
@@ -151,6 +156,21 @@ rng.rule.*.*.*:
       sequence:
         type: condition.plugin.[id]
         label: 'Condition'
+    client:
+      type: string
+      label: 'Client'
+    format:
+      type: string
+      label: 'Format'
+    pager_settings:
+      type: string
+      label: 'Pager settings'
+    api_key_settings:
+      type: string
+      label: 'API key'
+    parameters:
+      type: string
+      label: 'Parameters'
     actions:
       type: sequence
       label: 'Actions'

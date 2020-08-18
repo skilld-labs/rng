@@ -6,6 +6,8 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
+use Drupal\rng\Entity\Registrant;
+use Drupal\rng\Entity\RegistrantInterface;
 use Drupal\rng\Form\RegistrantFields;
 use Drupal\user\Entity\User;
 use Drupal\rng\RegistrantsElementUtility as RegistrantsElement;
@@ -111,7 +113,7 @@ class Registrants extends FormElement {
     /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository */
     $entity_display_repository = \Drupal::service('entity_display.repository');
     /** @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info */
-    $bundle_info = \Drupal::service('entity_type.bundle.info');
+    $bundle_info = \Drupal::service('entity_type.bundle.info')->getBundleInfo('registrant');
     /** @var \Drupal\Core\Entity\EntityFormBuilder $entity_form_builder */
     $entity_form_builder = \Drupal::service('entity.form_builder');
 
@@ -126,8 +128,12 @@ class Registrants extends FormElement {
     $element['#prefix'] = '<div id="' . $ajax_wrapper_id_root . '">';
     $element['#suffix'] = '</div>';
 
+    $people = [];
     /** @var \Drupal\rng\Entity\RegistrantInterface[] $people */
-    $people = $element['#value'];
+    $test = reset($element['#value']);
+    if( $test instanceof Registrant) {
+      $people = $element['#value'];
+    }
 
     $ajax_wrapper_id_people = 'ajax-wrapper-people-' . implode('-', $parents);
 
@@ -139,6 +145,9 @@ class Registrants extends FormElement {
 
     $counter = 0;
     foreach ($people as $reg_id => $registrant) {
+      if(!($registrant instanceof RegistrantInterface)) {
+        continue;
+      }
       $counter++;
       $curr_parent = array_merge($parents, [$counter]);
       /** @var RegistrantFields $helper */
@@ -177,9 +186,10 @@ class Registrants extends FormElement {
 
       if (count($people)) {
         // Add New button
+
         $person_subform['new_person']['load_create_form'] = [
           '#type' => 'submit',
-          '#value' => t('Create new @label', ['@label' => $bundle_info['label']]),
+          '#value' => t('Create new @label', ['@label' => $bundle_info['registrant']['label']]),
           '#ajax' => [
             'callback' => [static::class, 'ajaxElementRoot'],
             'wrapper' => $ajax_wrapper_id_root,
@@ -204,7 +214,7 @@ class Registrants extends FormElement {
         ];
 
         /** @var \Drupal\rng\RegistrantFactoryInterface $registrant_factory */
-        $registrant_factory = \Drupal::service('rng.registrant_factory');
+        $registrant_factory = \Drupal::service('rng.registrant.factory');
         $new_person = $registrant_factory->createRegistrant([
           'event' => $event,
         ]);
@@ -722,6 +732,9 @@ class Registrants extends FormElement {
 
     $identities = [];
     foreach ($registrants as $registrant) {
+      if(!($registrant instanceof RegistrantInterface)) {
+        continue;
+      }
       $identity = $registrant->getIdentity();
       if ($identity) {
         $entity_type = $identity->getEntityTypeId();

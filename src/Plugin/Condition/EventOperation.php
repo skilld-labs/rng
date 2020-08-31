@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @Condition(
  *   id = "rng_event_operation",
  *   label = @Translation("Operation on event"),
- *   context = {
+ *   context_definitions = {
  *     "event" = @ContextDefinition("entity",
  *       label = @Translation("Event"),
  *       required = TRUE

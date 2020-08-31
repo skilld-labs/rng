@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @Condition(
  *   id = "rng_registration_identity",
  *   label = @Translation("Registration has identity"),
- *   context = {
+ *   context_definitions = {
  *     "user" = @ContextDefinition("entity:user",
  *       label = @Translation("Registrant"),
  *       required = TRUE

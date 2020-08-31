@@ -14,7 +14,7 @@ use Drupal\user\Entity\Role;
  * @Condition(
  *   id = "rng_user_role",
  *   label = @Translation("User Role"),
- *   context = {
+ *   context_definitions = {
  *     "user" = @ContextDefinition("entity:user",
  *       label = @Translation("User"),
  *       required = TRUE

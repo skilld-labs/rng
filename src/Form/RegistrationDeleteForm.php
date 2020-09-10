@@ -41,7 +41,7 @@ class RegistrationDeleteForm extends ContentEntityConfirmFormBase {
 
     $this->messenger()->addMessage(t('Registration deleted.'));
 
-    if ($urlInfo = $event->urlInfo()) {
+    if ($urlInfo = $event->toUrl()) {
       $form_state->setRedirectUrl($urlInfo);
     }
     else {

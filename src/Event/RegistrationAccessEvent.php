@@ -2,8 +2,8 @@
 
 namespace Drupal\rng\Event;
 
+use Symfony\Contracts\EventDispatcher\Event;
 use Drupal\Core\Session\AccountInterface;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Registration event to influence access.

@@ -187,6 +187,7 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
    */
   public function getRegistrantIds() {
     return $this->registrant_ids = \Drupal::entityQuery('registrant')
+      ->accessCheck(FALSE)
       ->condition('registration', $this->id(), '=')
       ->execute();
   }
@@ -223,7 +224,7 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
    */
   public function hasIdentity(EntityInterface $identity) {
     foreach ($this->identities_unsaved as $identity_unsaved) {
-      if ($identity == $identity_unsaved) {
+      if ($identity === $identity_unsaved) {
         return TRUE;
       }
     }
@@ -464,6 +465,7 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
     foreach ($entities as $registration) {
       // Delete associated registrants.
       $ids = $registrant_storage->getQuery()
+        ->accessCheck(FALSE)
         ->condition('registration', $registration->id(), '=')
         ->execute();
       $registrants = $registrant_storage->loadMultiple($ids);

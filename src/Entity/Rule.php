@@ -75,6 +75,7 @@ class Rule extends ContentEntityBase implements RuleInterface {
    */
   public function getConditions() {
     $ids = \Drupal::entityQuery('rng_rule_component')
+      ->accessCheck(FALSE)
       ->condition('rule', $this->id(), '=')
       ->condition('type', 'condition', '=')
       ->execute();
@@ -92,6 +93,7 @@ class Rule extends ContentEntityBase implements RuleInterface {
    */
   public function getActions() {
     $ids = \Drupal::entityQuery('rng_rule_component')
+      ->accessCheck(FALSE)
       ->condition('rule', $this->id(), '=')
       ->condition('type', 'action', '=')
       ->execute();
@@ -168,6 +170,7 @@ class Rule extends ContentEntityBase implements RuleInterface {
     foreach ($entities as $rule) {
       // Delete associated rule components.
       $ids = $component_storage->getQuery()
+        ->accessCheck(FALSE)
         ->condition('rule', $rule->id())
         ->execute();
       $components = $component_storage->loadMultiple($ids);

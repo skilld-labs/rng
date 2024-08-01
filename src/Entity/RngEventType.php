@@ -437,7 +437,7 @@ class RngEventType extends ConfigEntityBase implements EventTypeInterface {
     }
 
     if (!$update) {
-      module_load_include('inc', 'rng', 'rng.field.defaults');
+      \Drupal::moduleHandler()->loadInclude('rng', 'inc', 'rng.field.defaults');
       foreach ($this->fields as $field) {
         rng_add_event_field_storage($field, $this->entity_type);
         rng_add_event_field_config($field, $this->getEventEntityTypeId(), $this->getEventBundle());
@@ -464,7 +464,7 @@ class RngEventType extends ConfigEntityBase implements EventTypeInterface {
         EventManagerInterface::FIELD_REGISTRATION_GROUPS,
       ];
 
-      module_load_include('inc', 'rng', 'rng.field.defaults');
+      \Drupal::moduleHandler()->loadInclude('rng', 'inc', 'rng.field.defaults');
       foreach ($this->fields as $name) {
         rng_add_event_form_display_defaults($display, $name);
         if (in_array($name, $field_weights)) {

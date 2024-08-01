@@ -99,7 +99,7 @@ class RegistrationAccessControlHandler extends EntityAccessControlHandler {
 
     try {
       $event = new RegistrationAccessEvent($entity_bundle, $account, $context);
-      $this->eventDispatcher->dispatch(RegistrationEvents::REGISTRATION_CREATE_ACCESS, $event);
+      $this->eventDispatcher->dispatch($event, RegistrationEvents::REGISTRATION_CREATE_ACCESS);
       if (!$event->isAccessAllowed()) {
         return $fail;
       }

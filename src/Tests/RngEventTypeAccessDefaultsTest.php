@@ -39,12 +39,12 @@ class RngEventTypeAccessDefaultsTest extends RngWebTestBase {
     $this->drupalGet($defaults_route);
 
     // Ensure checkboxes have default values.
-    $this->assertNoFieldById('edit-actions-operations-event-manager-create');
+    $this->assertSession()->fieldNotExists('edit-actions-operations-event-manager-create');
     $this->assertFieldChecked('edit-actions-operations-event-manager-view');
     $this->assertFieldChecked('edit-actions-operations-event-manager-update');
     $this->assertFieldChecked('edit-actions-operations-event-manager-delete');
 
-    $this->assertNoFieldById('edit-actions-operations-registrant-create');
+    $this->assertSession()->fieldNotExists('edit-actions-operations-registrant-create');
     $this->assertFieldChecked('edit-actions-operations-registrant-view');
     $this->assertFieldChecked('edit-actions-operations-registrant-update');
     $this->assertNoFieldChecked('edit-actions-operations-registrant-delete');

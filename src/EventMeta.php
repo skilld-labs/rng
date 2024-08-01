@@ -334,7 +334,9 @@ class EventMeta implements EventMetaInterface {
    * {@inheritdoc}
    */
   public function countRegistrations() {
-    return $this->buildRegistrationQuery()->count()->execute();
+    return $this->buildRegistrationQuery()
+      ->count()
+      ->execute();
   }
 
   /**
@@ -460,6 +462,7 @@ class EventMeta implements EventMetaInterface {
    */
   public function buildRegistrantQuery($entity_type_id = NULL) {
     $query = $this->entityManager->getStorage('registrant')->getQuery('AND')
+      ->accessCheck(FALSE)
       ->condition('registration.entity.event__target_type', $this->getEvent()->getEntityTypeId(), '=')
       ->condition('registration.entity.event__target_id', $this->getEvent()->id(), '=');
 

@@ -44,7 +44,7 @@ class RegistrationStorage extends SqlContentEntityStorage {
    */
   protected function invokeHook($hook, EntityInterface $entity) {
     parent::invokeHook($hook, $entity);
-    $this->eventDispatcher->dispatch($this->getEventName($hook), new RegistrationEvent($entity));
+    $this->eventDispatcher->dispatch(new RegistrationEvent($entity), $this->getEventName($hook));
   }
 
   /**

@@ -39,6 +39,7 @@ class RegistrationTypeDeleteForm extends EntityConfirmFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $count = $this->entityTypeManager->getStorage('registration')->getQuery()
+      ->accessCheck(TRUE)
       ->condition('type', $this->entity->id())
       ->count()
       ->execute();

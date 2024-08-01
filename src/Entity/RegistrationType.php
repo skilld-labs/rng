@@ -82,6 +82,7 @@ class RegistrationType extends ConfigEntityBundleBase implements RegistrationTyp
             ->getDefinition($entity_type)->getKey('bundle');
 
           $ids = $event_storage->getQuery()
+            ->accessCheck(FALSE)
             ->condition($bundle_key, $bundle)
             ->condition(EventManagerInterface::FIELD_REGISTRATION_TYPE, $registration_type->id())
             ->execute();
@@ -97,6 +98,7 @@ class RegistrationType extends ConfigEntityBundleBase implements RegistrationTyp
 
       // Remove registrations.
       $ids = $registration_storage->getQuery()
+        ->accessCheck(FALSE)
         ->condition('type', $registration_type->id())
         ->execute();
 

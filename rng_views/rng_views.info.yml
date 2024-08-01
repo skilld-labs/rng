@@ -2,7 +2,7 @@ name: RNG Views
 type: module
 description: 'Improved Views integration for RNG.'
 package: RNG
-core_version_requirement: ^8.8.4 || ^9.0
+core_version_requirement: ^9.4 || ^10 || ^11
 dependencies:
   - rng
   - views

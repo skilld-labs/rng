@@ -85,7 +85,7 @@ class RegistrationTypeForm extends EntityForm {
    */
   public function exists($entity_id, array $element, FormStateInterface $form_state) {
     $query = $this->entityTypeManager->getStorage('registration_type')->getQuery();
-    return (bool) $query->condition('id', $entity_id)->execute();
+    return (bool) $query->accessCheck(FALSE)->condition('id', $entity_id)->execute();
   }
 
   /**

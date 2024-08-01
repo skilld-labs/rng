@@ -70,6 +70,7 @@ class EventManager implements EventManagerInterface {
    */
   public function eventType($entity_type, $bundle) {
     $ids = $this->eventTypeStorage->getQuery()
+      ->accessCheck(FALSE)
       ->condition('entity_type', $entity_type, '=')
       ->condition('bundle', $bundle, '=')
       ->execute();
@@ -87,6 +88,7 @@ class EventManager implements EventManagerInterface {
    */
   public function eventTypeWithEntityType($entity_type) {
     $ids = $this->eventTypeStorage->getQuery()
+      ->accessCheck(FALSE)
       ->condition('entity_type', $entity_type, '=')
       ->execute();
 

@@ -51,6 +51,7 @@ class RegistrantTypeDeleteForm extends EntityDeleteForm {
     $count = $this->entityTypeManager
       ->getStorage('registrant')
       ->getQuery()
+      ->accessCheck(TRUE)
       ->condition('type', $registrant_type->id())
       ->count()
       ->execute();

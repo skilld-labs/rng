@@ -54,6 +54,7 @@ class RngCron {
   protected function scheduleRules() {
     $ids = $this->ruleSchedulerStorage
       ->getQuery()
+      ->accessCheck(FALSE)
       ->condition('trigger_date', time(), '<=')
       ->condition('in_queue', 0, '=')
       ->condition('attempts', RuleSchedule::ATTEMPTS_MAX, '<=')
@@ -83,6 +84,7 @@ class RngCron {
   protected function deleteScheduleRules() {
     $ids = $this->ruleSchedulerStorage
       ->getQuery()
+      ->accessCheck(FALSE)
       ->condition('attempts', RuleSchedule::ATTEMPTS_MAX, '>')
       ->execute();
 

@@ -47,7 +47,7 @@ class EventTypeFieldMappingForm extends EntityForm {
       ],
     ];
 
-    module_load_include('inc', 'rng', 'rng.field.defaults');
+    \Drupal::moduleHandler()->loadInclude('rng', 'inc', 'rng.field.defaults');
     foreach ($this->fields as $field_name) {
       $row = [];
       $definition = rng_event_field_config_definition($field_name);

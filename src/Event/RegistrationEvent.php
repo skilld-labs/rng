@@ -2,8 +2,8 @@
 
 namespace Drupal\rng\Event;
 
+use Symfony\Contracts\EventDispatcher\Event;
 use Drupal\rng\Entity\RegistrationInterface;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Registration event.

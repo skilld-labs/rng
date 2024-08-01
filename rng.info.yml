@@ -2,7 +2,7 @@ name: RNG
 type: module
 description: 'Provides the ability to create and manage events and registrations.'
 package: RNG
-core_version_requirement: ^8.8.4 || ^9.0
+core_version_requirement: ^9.4 || ^10 || ^11
 dependencies:
   - courier:courier
   - dynamic_entity_reference:dynamic_entity_reference

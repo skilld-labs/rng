@@ -170,6 +170,7 @@ class Registrant extends ContentEntityBase implements RegistrantInterface {
    */
   public static function getRegistrantsIdsForIdentity(EntityInterface $identity) {
     return \Drupal::entityQuery('registrant')
+      ->accessCheck(FALSE)
       ->condition('identity__target_type', $identity->getEntityTypeId(), '=')
       ->condition('identity__target_id', $identity->id(), '=')
       ->execute();

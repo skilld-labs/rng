@@ -3,6 +3,7 @@
 namespace Drupal\rng\Tests;
 
 use Drupal\rng\Entity\RngEventType;
+use Drupal\courier\CourierContextInterface;
 use Drupal\courier\Entity\CourierContext;
 use Drupal\node\Entity\NodeType;
 use Drupal\Core\Url;
@@ -78,8 +79,8 @@ class RngEventTypeTest extends RngWebTestBase {
     ]));
     $this->assertSession()->responseContains(t('%label event type added.', $t_args));
 
-    // Courier context created?
-    $this->assertSession()->assert(CourierContext::load('rng_registration_node'), 'Courier context entity created for this event type\' entity type.');
+    // Assert that a Courier context entity was created.
+    $this->assertInstanceof(CourierContextInterface::class, CourierContext::load('rng_registration_node'), 'Courier context entity created for this event type\' entity type.');
 
     // Event type list.
     $this->drupalGet('admin/structure/rng/event_types');
